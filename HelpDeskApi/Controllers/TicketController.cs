@@ -49,6 +49,49 @@ namespace HelpDeskApi.Controllers
             return ticket;
         }
 
+        // GET: api/GetBookmarkedTickets
+        [HttpGet("GetBookmarkedTickets")]
+        public async Task<ActionResult<List<Ticket>>> GetBookmarkedTickets()
+        {
+
+            List<Ticket> tickets = await _context.Tickets.Where(t => t.IsBookmarked == "true").ToListAsync();
+
+            if (tickets == null)
+            {
+                return NotFound();
+            }
+
+            return tickets;
+        }
+        // GET: api/GetActiveTickets
+        [HttpGet("GetActiveTickets")]
+        public async Task<ActionResult<List<Ticket>>> GetActiveTickets()
+        {
+
+            List<Ticket> tickets = await _context.Tickets.Where(t => t.Active == "true").ToListAsync();
+
+            if (tickets == null)
+            {
+                return NotFound();
+            }
+
+            return tickets;
+        }
+        // GET: api/GetClosedTickets
+        [HttpGet("GetClosedTickets")]
+        public async Task<ActionResult<List<Ticket>>> GetClosedTickets()
+        {
+
+            List<Ticket> tickets = await _context.Tickets.Where(t => t.Active == "false").ToListAsync();
+
+            if (tickets == null)
+            {
+                return NotFound();
+            }
+
+            return tickets;
+        }
+
         // PUT: api/Ticket/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -92,46 +135,15 @@ namespace HelpDeskApi.Controllers
         // POST: api/Ticket
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Ticket>> PostTicket(string _title, string _dateSubmitted, string _priority, string _details, int _userId)
+        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
-            Ticket ticket = new Ticket
-            {
-                Title = _title,
-                DateSubmitted = _dateSubmitted,
-                Priority = _priority,
-                Details = _details,
-                SubmittedBy = _context.Users.FirstOrDefault(u => u.Id == _userId).Name,
-                UserId = _userId,
-                ResolvedBy = "",
-                ResolutionNote = "",
-                Active = "true",
-                IsBookmarked = "false",
-                User = _context.Users.FirstOrDefault(u => u.Id == _userId),
-
-            };
-            if (_context.Tickets == null)
-            {
-                return Problem("Entity set 'HelpDeskAppDbContext.Tickets'  is null.");
-            }
             _context.Tickets.Add(ticket);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (TicketExists(ticket.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTicket", new { id = ticket.Id }, ticket);
         }
+
+        
 
         // DELETE: api/Ticket/5
         [HttpDelete("{id}")]
