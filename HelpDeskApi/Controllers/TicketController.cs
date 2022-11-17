@@ -52,12 +52,21 @@ namespace HelpDeskApi.Controllers
         // PUT: api/Ticket/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicket(int id, Ticket ticket)
+        public async Task<IActionResult> PutTicket(int id, string title, string dateSubmitted, string priority, string details, string resolvedBy, string resolutionNote, string active, string isBookmarked)
         {
+            Ticket ticket = _context.Tickets.FirstOrDefault(t => t.Id == id);
             if (id != ticket.Id)
             {
                 return BadRequest();
             }
+            ticket.Title = title;
+            ticket.DateSubmitted = dateSubmitted;
+            ticket.Priority = priority;
+            ticket.Details = details;
+            ticket.ResolvedBy = resolvedBy;
+            ticket.ResolutionNote = resolutionNote;
+            ticket.Active = active;
+            ticket.IsBookmarked = isBookmarked;
 
             _context.Entry(ticket).State = EntityState.Modified;
 
