@@ -1,16 +1,26 @@
 ﻿<Properties StartupConfiguration="{95AFD593-BF2B-4156-8F6A-6244C18F2581}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.HelpDeskApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.HelpDeskApi FirstBuild="True" PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="HelpDeskApi/Controllers/UserFavoriteController.cs">
+    <Files>
+      <File FileName="HelpDeskApi/Models/HelpDeskAppContext.cs" Line="12" Column="1" />
+      <File FileName="HelpDeskApi/Controllers/UserController.cs" Line="12" Column="32" />
+      <File FileName="HelpDeskApi/Controllers/TicketController.cs" Line="12" Column="32" />
+      <File FileName="HelpDeskApi/Controllers/UserFavoriteController.cs" Line="12" Column="32" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="HelpDeskApi" expanded="True" selected="True">
-            <Node name="HelpDeskApi" expanded="True" />
+          <Node name="HelpDeskApi" expanded="True">
+            <Node name="HelpDeskApi" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="TicketController.cs" selected="True" />
+              </Node>
+              <Node name="Models" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -20,4 +30,5 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
