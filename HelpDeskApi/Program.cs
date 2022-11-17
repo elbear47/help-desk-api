@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 // add db context
-builder.Services.AddDbContext<HelpDeskAppContext>(options => options.UseSqlServer());
+builder.Services.AddDbContext<HelpDeskAppDbContext>(options => options.UseSqlServer());
 // add cors
 builder.Services.AddCors(options =>
 {

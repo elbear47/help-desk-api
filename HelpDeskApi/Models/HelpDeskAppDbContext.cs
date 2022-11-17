@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelpDeskApi;
 
-public partial class HelpDeskAppContext : DbContext
+public partial class HelpDeskAppDbContext : DbContext
 {
-    public HelpDeskAppContext()
+    public HelpDeskAppDbContext()
     {
     }
 
-    public HelpDeskAppContext(DbContextOptions<HelpDeskAppContext> options)
+    public HelpDeskAppDbContext(DbContextOptions<HelpDeskAppDbContext> options)
         : base(options)
     {
     }
