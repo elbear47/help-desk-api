@@ -83,8 +83,22 @@ namespace HelpDeskApi.Controllers
         // POST: api/Ticket
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
+        public async Task<ActionResult<Ticket>> PostTicket(string _title, string _dateSubmitted, string _priority, string _details,int _userId)
         {
+            Ticket ticket = new Ticket {
+                Title = _title,
+                DateSubmitted = _dateSubmitted,
+                Priority = _priority,
+                Details = _details,
+                SubmittedBy = _context.Users.FirstOrDefault( u => u.Id == _userId).Name,
+                UserId = _userId,
+                ResolvedBy = "",
+                ResolutionNote = "",
+                Active = "true",
+                IsBookmarked = "false",
+                User = _context.Users.FirstOrDefault(u => u.Id == _userId),
+
+            };
           if (_context.Tickets == null)
           {
               return Problem("Entity set 'HelpDeskAppDbContext.Tickets'  is null.");
