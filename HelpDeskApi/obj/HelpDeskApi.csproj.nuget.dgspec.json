@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/HelpDeskApi/HelpDeskApi.csproj": {}
+    "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/help-desk-api/HelpDeskApi/HelpDeskApi.csproj": {}
   },
   "projects": {
-    "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/HelpDeskApi/HelpDeskApi.csproj": {
+    "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/help-desk-api/HelpDeskApi/HelpDeskApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/HelpDeskApi/HelpDeskApi.csproj",
+        "projectUniqueName": "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/help-desk-api/HelpDeskApi/HelpDeskApi.csproj",
         "projectName": "HelpDeskApi",
-        "projectPath": "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/HelpDeskApi/HelpDeskApi.csproj",
+        "projectPath": "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/help-desk-api/HelpDeskApi/HelpDeskApi.csproj",
         "packagesPath": "/Users/elberfunez/.nuget/packages/",
-        "outputPath": "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/HelpDeskApi/obj/",
+        "outputPath": "/Users/elberfunez/gc-bootcamp/projects/HelpDeskApi/help-desk-api/HelpDeskApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/elberfunez/.nuget/NuGet/NuGet.Config"
@@ -42,11 +42,19 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.10, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
