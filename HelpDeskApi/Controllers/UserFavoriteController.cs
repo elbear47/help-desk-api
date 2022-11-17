@@ -39,6 +39,7 @@ namespace HelpDeskApi.Controllers
           {
               return NotFound();
           }
+            //List<Ticket> bookmarkedTickets = _context.Tickets.Where(t => t.IsBookmarked == "true").ToList();
             var userFavorite = await _context.UserFavorites.FindAsync(id);
 
             if (userFavorite == null)
@@ -52,13 +53,16 @@ namespace HelpDeskApi.Controllers
         // PUT: api/UserFavorite/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserFavorite(int id, UserFavorite userFavorite)
+        public async Task<IActionResult> PutUserFavorite(int id,int userId, int ticketId)
         {
-            if (id != userFavorite.Id)
+            UserFavorite userFavorite = _context.UserFavorites.FirstOrDefault(uf => uf.Id == id);
+
+            if (userFavorite.Id != userFavorite.Id)
             {
                 return BadRequest();
             }
-
+            userFavorite.TicketId = ticketId;
+            userFavorite.UserId = userId;
             _context.Entry(userFavorite).State = EntityState.Modified;
 
             try
@@ -67,7 +71,7 @@ namespace HelpDeskApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserFavoriteExists(id))
+                if (!UserFavoriteExists(userFavorite.Id))
                 {
                     return NotFound();
                 }
@@ -83,20 +87,31 @@ namespace HelpDeskApi.Controllers
         // POST: api/UserFavorite
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserFavorite>> PostUserFavorite(UserFavorite userFavorite)
+        public async Task<ActionResult<UserFavorite>> PostUserFavorite(int ticketId, int userId)
         {
-          if (_context.UserFavorites == null)
-          {
-              return Problem("Entity set 'HelpDeskAppDbContext.UserFavorites'  is null.");
-          }
-            _context.UserFavorites.Add(userFavorite);
+            if (_context.UserFavorites == null)
+            {
+                return Problem("Entity set 'HelpDeskAppDbContext.UserFavorites'  is null.");
+            }
+            UserFavorite newUserFavorite = new UserFavorite()
+            {
+                UserId = userId,
+                TicketId = ticketId,
+                Ticket = _context.Tickets.FirstOrDefault(t => t.Id == ticketId),
+                User = _context.Users.FirstOrDefault(u => u.Id == userId),
+            };
+            // change bookmarked status to true
+            Ticket relevantTicket = _context.Tickets.FirstOrDefault(t => t.Id == ticketId);
+            relevantTicket.IsBookmarked = "true";
+            // add to user favorites
+            _context.UserFavorites.Add(newUserFavorite);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserFavoriteExists(userFavorite.Id))
+                if (UserFavoriteExists(newUserFavorite.Id))
                 {
                     return Conflict();
                 }
@@ -106,7 +121,7 @@ namespace HelpDeskApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUserFavorite", new { id = userFavorite.Id }, userFavorite);
+            return CreatedAtAction("GetUserFavorite", new { id = newUserFavorite.Id }, newUserFavorite);
         }
 
         // DELETE: api/UserFavorite/5
@@ -122,7 +137,10 @@ namespace HelpDeskApi.Controllers
             {
                 return NotFound();
             }
-
+            UserFavorite userFavorite1 = _context.UserFavorites.FirstOrDefault(u => u.Id == id);
+            // change bookmarked status
+            Ticket relevantTicket = _context.Tickets.FirstOrDefault(t => t.Id == userFavorite1.TicketId);
+            relevantTicket.IsBookmarked = "false";
             _context.UserFavorites.Remove(userFavorite);
             await _context.SaveChangesAsync();
 
